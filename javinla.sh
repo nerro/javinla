@@ -18,26 +18,26 @@ readonly version="0.1.0"
 # function definitions
 #------------------------------------------------------------------------------
 
-function out()   { printf "%b\n" "${@}"; }
+function log()   { printf "%b\n" "${@}"; }
 function error() { printf "%b\n" "[ERROR] ${@}" 1>&2; exit 1; }
 function info()  { printf "%b\n" "[INFO] ${@}"; }
 
 function usage() {
-  printf "%b\n" "Usage: ${program} COMMAND"
-  printf "%b\n" ""
-  printf "%b\n" "Commands:"
-  printf "%b\n" "    list      List of available java versions to download"
-  printf "%b\n" "    version   Show the Javinla version information"
-  printf "%b\n" ""
+  log "Usage: ${program} COMMAND"
+  log ""
+  log "Commands:"
+  log "    list      List of available java versions to download"
+  log "    version   Show the Javinla version information"
+  log ""
   exit 1
 }
 
 function show_version() {
-  out "${program} version: ${version}"
+  log "${program} version: ${version}"
 }
 
 function show_list() {
-  out "not yet implemented."
+  log "not yet implemented."
 }
 
 
