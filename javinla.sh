@@ -30,7 +30,7 @@ function log()   { printf "%b\n" "${@}"; }
 function error() { printf "%b\n" "[ERROR] ${@}" 1>&2; exit 1; }
 function info()  { printf "%b\n" "[INFO] ${@}"; }
 
-function usage() {
+function show_help() {
   log "Usage: ${program} COMMAND"
   log ""
   log "Commands:"
@@ -40,12 +40,13 @@ function usage() {
   exit 1
 }
 
-function show_version() {
+function subcommand_version() {
   log "${program} version: ${version}"
 }
 
-function show_list() {
-  log "not yet implemented."
+function subcommand_list() {
+  log "VERSION NUMBER     URL"
+  log "not implemented yet"
 }
 
 
@@ -58,20 +59,38 @@ function show_list() {
 
 # exit if there are no arguments
 if [[ $# -eq 0 ]]; then
-  usage
+  show_help
 fi
+
+# parse options to the `javinla` command
+while getopts ":h" opt; do
+  case ${opt} in
+    h)
+      show_help
+      ;;
+
+    \?)
+      error "flag provided but not defined: -$OPTARG\nSee '${program} -h'"
+      ;;
+  esac
+done
+shift $((OPTIND-1))
 
 # parse subcommands
 subcommand=$1; shift
 case "$subcommand" in
   version)
-    show_version
+    subcommand_version
     ;;
  
   list)
-    show_list
+    subcommand_list
     ;;
-  
+
+  *)
+    error "'${subcommand}' is not a javinla command. See '${program} -h'."
+    ;;
+
 esac
 
 exit 0
