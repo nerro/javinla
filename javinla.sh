@@ -34,19 +34,24 @@ function show_help() {
   log "Usage: ${program} COMMAND"
   log ""
   log "Commands:"
+  log "    install   Install the specified java version from Oracle site"
   log "    list      List of available java versions to download"
   log "    version   Show the Javinla version information"
   log ""
   exit 1
 }
 
-function subcommand_version() {
-  log "${program} version: ${version}"
+function subcommand_install() {
+  log "not implemented yet"
 }
 
 function subcommand_list() {
   log "VERSION NUMBER     URL"
   log "not implemented yet"
+}
+
+function subcommand_version() {
+  log "${program} version: ${version}"
 }
 
 
@@ -79,12 +84,16 @@ shift $((OPTIND-1))
 # parse subcommands
 subcommand=$1; shift
 case "$subcommand" in
-  version)
-    subcommand_version
+  install)
+    subcommand_install
     ;;
- 
+
   list)
     subcommand_list
+    ;;
+
+  version)
+    subcommand_version
     ;;
 
   *)
