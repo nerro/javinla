@@ -14,7 +14,6 @@ readonly program=$(basename $0)
 readonly version="0.1.0"
 
 declare -A java_versions
-java_versions[8u5]="http://download.oracle.com/otn-pub/java/jdk/8u5-b13/server-jre-8u5-linux-x64.tar.gz"
 java_versions[8u11]="http://download.oracle.com/otn-pub/java/jdk/8u11-b12/server-jre-8u11-linux-x64.tar.gz"
 java_versions[8u20]="http://download.oracle.com/otn-pub/java/jdk/8u20-b26/server-jre-8u20-linux-x64.tar.gz"
 java_versions[8u25]="http://download.oracle.com/otn-pub/java/jdk/8u25-b17/server-jre-8u25-linux-x64.tar.gz"
@@ -46,8 +45,10 @@ function subcommand_install() {
 }
 
 function subcommand_list() {
-  log "VERSION NUMBER     URL"
-  log "not implemented yet"
+  log "VERSION NUMBER\t\tURL"
+  for java_version in "${!java_versions[@]}"; do
+    log "${java_version}\t\t\t${java_versions["${java_version}"]}"
+  done | sort
 }
 
 function subcommand_version() {
