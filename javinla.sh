@@ -13,6 +13,7 @@ set -o nounset    # treat unset variables and parameters as an error
 readonly program=$(basename $0)
 readonly version="0.1.0"
 
+declare java_version_to_install=""
 declare -A java_versions
 java_versions[8u11]="http://download.oracle.com/otn-pub/java/jdk/8u11-b12/server-jre-8u11-linux-x64.tar.gz"
 java_versions[8u20]="http://download.oracle.com/otn-pub/java/jdk/8u20-b26/server-jre-8u20-linux-x64.tar.gz"
@@ -41,7 +42,15 @@ function show_help() {
 }
 
 function subcommand_install() {
-  log "not implemented yet"
+  if [ -z "${java_version_to_install}" ]; then
+    error "no version defined"
+  fi
+
+  if [[ ${java_versions[${java_version_to_install}]+version_exists} ]]; then
+    log "${java_versions["${java_version_to_install}"]}"
+  else
+    error "version not found: ${java_version_to_install}"
+  fi
 }
 
 function subcommand_list() {
@@ -86,7 +95,13 @@ shift $((OPTIND-1))
 subcommand=$1; shift
 case "$subcommand" in
   install)
-    subcommand_install
+    # exit if there is no version to install
+    if [[ $# -eq 0 ]]; then
+      error "specify a java version to install"
+    fi
+
+    java_version_to_install=$1; shift
+    subcommand_install ${java_version_to_install}
     ;;
 
   list)
