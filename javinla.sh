@@ -47,7 +47,24 @@ function subcommand_install() {
   fi
 
   if [[ ${java_versions[${java_version_to_install}]+version_exists} ]]; then
-    log "${java_versions["${java_version_to_install}"]}"
+    log ":: Retrieving version ${java_version_to_install}..."
+    local download_url="${java_versions[${java_version_to_install}]}"
+    local java_tarball="${java_version_to_install}.tar.gz"
+
+    cd /tmp
+    (curl --location --insecure --junk-session-cookies --output ${java_tarball} \
+          --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
+          ${download_url})
+    [ $? -ne 0 ] && error "retrieving version file from Oracle failed"
+
+    log ":: Extracting tarball"
+    mkdir /opt/java
+    (tar -xzf /tmp/${java_tarball} -C /opt/java)
+    [ $? -ne 0 ] && error "extracting the tarball failed"
+
+    log ":: Configuring environment variables"
+    #TODO: use update-alternatives to set java into PATH
+
   else
     error "version not found: ${java_version_to_install}"
   fi
