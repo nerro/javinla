@@ -58,12 +58,13 @@ function subcommand_install() {
     [ $? -ne 0 ] && error "retrieving version file from Oracle failed"
 
     log ":: Extracting tarball..."
-    mkdir /opt/java
-    (tar -xzf /tmp/${java_tarball} -C /opt/java)
+    (mkdir -p /opt/java/${java_version_to_install})
+    (tar -xzf /tmp/${java_tarball} -C /opt/java/${java_version_to_install} --strip-components=1)
     [ $? -ne 0 ] && error "extracting the tarball failed"
 
     log ":: Configuring environment variables..."
-    #TODO: use update-alternatives to set java into PATH
+    (ln -sf /opt/java/${java_version_to_install} /opt/java/jre)
+    (ln -sf /opt/java/jre/bin/java /usr/local/bin/java)
 
     log ":: Cleaning..."
     (rm -rf /tmp/${java_tarball})
