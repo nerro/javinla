@@ -90,9 +90,9 @@ function subcommand_version() {
 #------------------------------------------------------------------------------
 # SCRIPT ENTRYPOINT
 #------------------------------------------------------------------------------
-#if [[ $EUID -ne 0 ]]; then
-#  error "you cannot perform this operation unless you are root."
-#fi
+if [[ $EUID -ne 0 ]]; then
+  error "you cannot perform this operation unless you are root."
+fi
 
 # exit if there are no arguments
 if [[ $# -eq 0 ]]; then
