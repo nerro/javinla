@@ -54,12 +54,12 @@ function subcommand_install() {
 
   if [[ ${java_versions[${java_version_to_install}]+version_exists} ]]; then
     log ":: Retrieving version ${java_version_to_install}..."
-    local download_url="${java_versions[${java_version_to_install}]}"
     local java_tarball="${java_version_to_install}.tar.gz"
+    local download_url="${java_versions[${java_version_to_install}]}"
     if [[ "${is_curl_installed}" == "true" ]]; then
-      download_vith_curl
+      download_vith_curl ${java_tarball} ${download_url}
     elif [[ "${is_wget_installed}" == "true" ]]; then
-      download_vith_wget
+      download_vith_wget ${java_tarball} ${download_url}
     fi
 
     log ":: Extracting tarball..."
