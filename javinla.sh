@@ -58,7 +58,7 @@ function subcommand_install() {
     local java_tarball="${java_version_to_install}.tar.gz"
     if [[ "${is_curl_installed}" == "true" ]]; then
       download_vith_curl
-    elif [[ "${is_wget_installed}" == "true" ]];then
+    elif [[ "${is_wget_installed}" == "true" ]]; then
       download_vith_wget
     fi
 
