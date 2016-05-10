@@ -13,6 +13,8 @@ set -o nounset    # treat unset variables and parameters as an error
 readonly program=$(basename $0)
 readonly version="0.1.0"
 
+declare is_wget_installed="false"
+declare is_curl_installed="false"
 declare java_version_to_install=""
 declare -A java_versions
 java_versions[8u11]="http://download.oracle.com/otn-pub/java/jdk/8u11-b12/server-jre-8u11-linux-x64.tar.gz"
@@ -30,7 +32,6 @@ java_versions[8u66]="http://download.oracle.com/otn-pub/java/jdk/8u66-b17/server
 #------------------------------------------------------------------------------
 # function definitions
 #------------------------------------------------------------------------------
-
 function log()   { printf "%b\n" "${@}"; }
 function error() { printf "%b\n" "[ERROR] ${@}" 1>&2; exit 1; }
 function info()  { printf "%b\n" "[INFO] ${@}"; }
@@ -55,12 +56,11 @@ function subcommand_install() {
     log ":: Retrieving version ${java_version_to_install}..."
     local download_url="${java_versions[${java_version_to_install}]}"
     local java_tarball="${java_version_to_install}.tar.gz"
-
-    cd /tmp
-    (curl --location --insecure --junk-session-cookies --output ${java_tarball} \
-          --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
-          ${download_url})
-    [ $? -ne 0 ] && error "retrieving version file from Oracle failed"
+    if [[ "${is_curl_installed}" == "true" ]]; then
+      download_vith_curl
+    elif [[ "${is_wget_installed}" == "true" ]];then
+      download_vith_wget
+    fi
 
     log ":: Extracting tarball..."
     (mkdir -p /opt/java/${java_version_to_install})
@@ -91,6 +91,40 @@ function subcommand_version() {
   log "${program} version: ${version}"
 }
 
+function check_preconditions() {
+  (command -v curl > /dev/null 2>&1)
+  [ $? -eq 0 ] && is_curl_installed="true"
+
+  (command -v wget > /dev/null 2>&1)
+  [ $? -eq 0 ] && is_wget_installed="true"
+
+  if [[ "${is_wget_installed}" == "false" && "${is_curl_installed}" == "false" ]]; then
+    error "curl or wget not found."
+  fi
+}
+
+function download_vith_curl {
+  local java_tarball=$1
+  local download_url=$2
+
+  cd /tmp
+  (curl --location --insecure --junk-session-cookies --output ${java_tarball} \
+        --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
+        ${download_url})
+  [ $? -ne 0 ] && error "retrieving version file from Oracle failed"
+}
+
+function download_vith_wget {
+  local java_tarball=$1
+  local download_url=$2
+
+  cd /tmp
+  (wget --no-check-certificate --output-document ${java_tarball} \
+        --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
+        ${download_url})
+  [ $? -ne 0 ] && error "retrieving version file from Oracle failed"
+}
+
 
 #------------------------------------------------------------------------------
 # SCRIPT ENTRYPOINT
@@ -103,6 +137,9 @@ fi
 if [[ $# -eq 0 ]]; then
   show_help
 fi
+
+# exit if no curl or wget installed
+check_preconditions
 
 # parse options to the `javinla` command
 while getopts ":h" opt; do
