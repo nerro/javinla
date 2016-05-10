@@ -48,7 +48,7 @@ function show_help() {
 }
 
 function subcommand_install() {
-  if [ -z "${java_version_to_install}" ]; then
+  if [[ -z "${java_version_to_install}" ]]; then
     error "no version defined"
   fi
 
@@ -65,7 +65,7 @@ function subcommand_install() {
     log ":: Extracting tarball..."
     (mkdir -p /opt/java/${java_version_to_install})
     (tar -xzf /tmp/${java_tarball} -C /opt/java/${java_version_to_install} --strip-components=1)
-    [ $? -ne 0 ] && error "extracting the tarball failed"
+    [[ $? -ne 0 ]] && error "extracting the tarball failed"
 
     log ":: Configuring environment variables..."
     (ln -sf /opt/java/${java_version_to_install} /opt/java/jre)
@@ -93,10 +93,10 @@ function subcommand_version() {
 
 function check_preconditions() {
   (command -v curl > /dev/null 2>&1)
-  [ $? -eq 0 ] && is_curl_installed="true"
+  [[ $? -ne 0 ]] && is_curl_installed="true"
 
   (command -v wget > /dev/null 2>&1)
-  [ $? -eq 0 ] && is_wget_installed="true"
+  [[ $? -ne 0 ]] && is_wget_installed="true"
 
   if [[ "${is_wget_installed}" == "false" && "${is_curl_installed}" == "false" ]]; then
     error "curl or wget not found."
@@ -111,7 +111,7 @@ function download_vith_curl {
   (curl --location --insecure --junk-session-cookies --output ${java_tarball} \
         --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
         ${download_url})
-  [ $? -ne 0 ] && error "retrieving version file from Oracle failed"
+  [[ $? -ne 0 ]] && error "retrieving version file from Oracle failed"
 }
 
 function download_vith_wget {
@@ -122,7 +122,7 @@ function download_vith_wget {
   (wget --no-check-certificate --output-document ${java_tarball} \
         --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
         ${download_url})
-  [ $? -ne 0 ] && error "retrieving version file from Oracle failed"
+  [[ $? -ne 0 ]] && error "retrieving version file from Oracle failed"
 }
 
 
@@ -183,4 +183,3 @@ case "$subcommand" in
 esac
 
 exit 0
-
