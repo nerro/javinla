@@ -57,9 +57,9 @@ function subcommand_install() {
     local java_tarball="${java_version_to_install}.tar.gz"
     local download_url="${java_versions[${java_version_to_install}]}"
     if [[ "${is_curl_installed}" == "true" ]]; then
-      download_vith_curl ${java_tarball} ${download_url}
+      download_with_curl ${java_tarball} ${download_url}
     elif [[ "${is_wget_installed}" == "true" ]]; then
-      download_vith_wget ${java_tarball} ${download_url}
+      download_with_wget ${java_tarball} ${download_url}
     fi
 
     log ":: Extracting tarball..."
@@ -106,7 +106,7 @@ function check_preconditions() {
   fi
 }
 
-function download_vith_curl {
+function download_with_curl {
   local java_tarball=$1
   local download_url=$2
 
@@ -119,7 +119,7 @@ function download_vith_curl {
   fi
 }
 
-function download_vith_wget {
+function download_with_wget {
   local java_tarball=$1
   local download_url=$2
 
