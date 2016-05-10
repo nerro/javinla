@@ -93,10 +93,10 @@ function subcommand_version() {
 
 function check_preconditions() {
   (command -v curl > /dev/null 2>&1)
-  [[ $? -ne 0 ]] && is_curl_installed="true"
+  [[ $? -eq 0 ]] && is_curl_installed="true"
 
   (command -v wget > /dev/null 2>&1)
-  [[ $? -ne 0 ]] && is_wget_installed="true"
+  [[ $? -eq 0 ]] && is_wget_installed="true"
 
   if [[ "${is_wget_installed}" == "false" && "${is_curl_installed}" == "false" ]]; then
     error "curl or wget not found."
