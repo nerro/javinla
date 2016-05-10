@@ -65,7 +65,9 @@ function subcommand_install() {
     log ":: Extracting tarball..."
     (mkdir -p /opt/java/${java_version_to_install})
     (tar -xzf /tmp/${java_tarball} -C /opt/java/${java_version_to_install} --strip-components=1)
-    [[ $? -ne 0 ]] && error "extracting the tarball failed"
+    if [[ $? -ne 0 ]]; then
+      error "extracting the tarball failed"
+    fi
 
     log ":: Configuring environment variables..."
     (ln -sf /opt/java/${java_version_to_install} /opt/java/jre)
@@ -112,7 +114,9 @@ function download_vith_curl {
   (curl --location --insecure --junk-session-cookies --output ${java_tarball} \
         --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
         ${download_url})
-  [[ $? -ne 0 ]] && error "retrieving version file from Oracle failed"
+  if [[ $? -ne 0 ]]; then
+    error "retrieving version file from Oracle failed"
+  fi
 }
 
 function download_vith_wget {
@@ -123,7 +127,9 @@ function download_vith_wget {
   (wget --no-check-certificate --output-document ${java_tarball} \
         --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
         ${download_url})
-  [[ $? -ne 0 ]] && error "retrieving version file from Oracle failed"
+  if [[ $? -ne 0 ]]; then
+    error "retrieving version file from Oracle failed"
+  fi
 }
 
 
