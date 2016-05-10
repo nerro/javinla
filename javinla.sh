@@ -52,6 +52,9 @@ function subcommand_install() {
     error "no version defined"
   fi
 
+  # exit if no curl or wget installed
+  check_preconditions
+
   if [[ ${java_versions[${java_version_to_install}]+version_exists} ]]; then
     log ":: Retrieving version ${java_version_to_install}..."
     local java_tarball="${java_version_to_install}.tar.gz"
@@ -144,9 +147,6 @@ fi
 if [[ $# -eq 0 ]]; then
   show_help
 fi
-
-# exit if no curl or wget installed
-check_preconditions
 
 # parse options to the `javinla` command
 while getopts ":h" opt; do
