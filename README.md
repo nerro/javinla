@@ -16,7 +16,7 @@ docker images as small as possible.
 
 ## SYSTEM REQUIREMENTS
 
-* curl
+* curl or wget
 * Unix like operation system
 
 ## INSTALLATION
