@@ -11,7 +11,7 @@ set -o pipefail   # return the exit status of the last command in the pipe
 set -o nounset    # treat unset variables and parameters as an error
 
 readonly program=$(basename $0)
-readonly version="0.1.0"
+readonly version="0.2.0"
 
 declare is_wget_installed="false"
 declare is_curl_installed="false"
