@@ -12,6 +12,7 @@ set -o nounset    # treat unset variables and parameters as an error
 
 readonly program=$(basename $0)
 readonly version="0.2.0"
+readonly oraclelicence_header="Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie"
 
 declare is_wget_installed="false"
 declare is_curl_installed="false"
@@ -122,7 +123,7 @@ function download_with_curl {
 
   cd /tmp
   (curl --location --insecure --junk-session-cookies --output ${java_tarball} \
-        --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
+        --header "${oraclelicence_header}" \
         ${download_url})
   if [[ $? -ne 0 ]]; then
     error "retrieving version file from Oracle failed"
@@ -135,7 +136,7 @@ function download_with_wget {
 
   cd /tmp
   (wget --no-check-certificate --output-document ${java_tarball} \
-        --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
+        --header "${oraclelicence_header}" \
         ${download_url})
   if [[ $? -ne 0 ]]; then
     error "retrieving version file from Oracle failed"
