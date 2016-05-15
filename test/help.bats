@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-@test "without args shows summary of common commands" {
-  result=$(run javinla.sh)
-  [ "$result" -eq 1 ]
+@test "no arguments prints usage instructions" {
+  run javinla.sh
+  [ $status -eq 1 ]
 }
