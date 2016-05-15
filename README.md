@@ -1,5 +1,7 @@
 # javinla
 
+[![Build Status](https://travis-ci.org/nerro/javinla.svg?branch=master)](https://travis-ci.org/nerro/javinla)
+
 Javinla is a command-line tool to make an Java installation on your server very
 easy. You don't need to set ppa repositories (ubuntu/debian) or use aur packages
 (archlinux) and get latest java version. Just select the Java version you want
