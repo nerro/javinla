@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
+ln -sf ../javinla /usr/local/bin/javinla
+
 exec bats test

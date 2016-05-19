@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
 @test "no arguments prints usage instructions" {
-  run ./javinla.sh
+  run javinla
   [ "$status" -eq 1 ]
 }
