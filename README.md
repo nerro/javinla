@@ -19,23 +19,24 @@ docker images as small as possible.
 ## Installation
 
 1. Download the [javinla script](https://github.com/nerro/javinla/releases/download/v0.2.0/javinla.sh) from latest release.
-2. That's it.
+2. Place it somewhere on your PATH (make sure it is executable).
+3. That's it.
 
 
 ## Usage
 
-Once you're installed then you can used `javinla.sh install <java-version>` to
+Once you're installed then you can used `javinla install <java-version>` to
 install selected JRE on you machine, e.g:
 
 ```bash
-$ ./javinla.sh install 8u92
+$ javinla install 8u92
 ... this will install selected 8u92 version under /opt/java...
 ```
 
 To list all available Java versions to install, use `javinla.sh list` command:
 
 ```bash
-$ ./javinla.sh list
+$ javinla list
 VERSION NUMBER      URL
 ...
 8u77                http://download.oracle.com/otn/java/jdk/8u77-b03/server-jre-8u77-linux-x64.tar.gz
