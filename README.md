@@ -33,7 +33,7 @@ $ javinla install 8u92
 ... this will install selected 8u92 version under /opt/java...
 ```
 
-To list all available Java versions to install, use `javinla.sh list` command:
+To list all available Java versions to install, use `javinla list` command:
 
 ```bash
 $ javinla list
