@@ -6,3 +6,13 @@ install:
 
 script:
   - PATH=".:./bats/bin:$PATH" test/run
+
+deploy:
+  provider: releases
+  api_key:
+    secure: Sx9e9Y8cRVb7k1fyHnjJ9o2UJWsoQhChjqzS3MWEbMWkUW8GXG0/I6eW7FQBK9jEsKG1OqY7hIOYh33hkfglXVFDI0kxGj9XOEn0arBjwQDbSSZXY7CDPyjBZN+lb+v1MfXgyMKJ4pSwufxtq/NvxcF4VG4jgWv3ZzrNcntzSCU=
+  file: javinla
+  skip_cleanup: true
+  on:
+    repo: nerro/javinla
+    tags: true
