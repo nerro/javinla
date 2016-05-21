@@ -121,7 +121,7 @@ function check_preconditions() {
   fi
 }
 
-function download_with_curl {
+function download_with_curl() {
   local java_tarball=$1
   local download_url=$2
 
@@ -134,7 +134,7 @@ function download_with_curl {
   fi
 }
 
-function download_with_wget {
+function download_with_wget() {
   local java_tarball=$1
   local download_url=$2
 
