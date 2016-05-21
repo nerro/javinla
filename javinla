@@ -56,6 +56,10 @@ function show_help() {
 }
 
 function subcommand_install() {
+  if [[ $EUID -ne 0 ]]; then
+    error "you cannot perform this operation unless you are root."
+  fi
+
   if [[ -z "${java_version_to_install}" ]]; then
     error "no version defined"
   fi
@@ -147,10 +151,6 @@ function download_with_wget {
 #------------------------------------------------------------------------------
 # SCRIPT ENTRYPOINT
 #------------------------------------------------------------------------------
-if [[ $EUID -ne 0 ]]; then
-  error "you cannot perform this operation unless you are root."
-fi
-
 # exit if there are no arguments
 if [[ $# -eq 0 ]]; then
   show_help
