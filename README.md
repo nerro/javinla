@@ -18,7 +18,7 @@ docker images as small as possible.
 
 ## Installation
 
-1. Download the [javinla script](https://github.com/nerro/javinla/releases/download/v0.2.0/javinla.sh) from latest release.
+1. Download the [javinla script](https://github.com/nerro/javinla/releases/download/v0.3.0/javinla) from latest release.
 2. Place it somewhere on your PATH (make sure it is executable).
 3. That's it.
 
