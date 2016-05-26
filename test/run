@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -e
 
-exec bats test
+exec bats --tap test
