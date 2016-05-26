@@ -7,6 +7,9 @@ install:
 script:
   - PATH=".:./bats/bin:$PATH" test/run
 
+notifications:
+  email: false
+
 before_deploy: "sha1sum javinla > javinla.sha1"
 deploy:
   provider: releases
