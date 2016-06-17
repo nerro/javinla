@@ -1,6 +1,8 @@
 #!/usr/bin/env bats
 
+load test_helper
+
 @test "no arguments prints usage instructions" {
   run javinla
-  [ "$status" -eq 1 ]
+  assert_fail
 }
