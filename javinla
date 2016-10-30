@@ -37,6 +37,8 @@ java_versions[8u91]="http://download.oracle.com/otn-pub/java/jdk/8u91-b14/server
 java_versions[8u92]="http://download.oracle.com/otn-pub/java/jdk/8u92-b14/server-jre-8u92-linux-x64.tar.gz"
 java_versions[8u101]="http://download.oracle.com/otn-pub/java/jdk/8u101-b13/server-jre-8u101-linux-x64.tar.gz"
 java_versions[8u102]="http://download.oracle.com/otn-pub/java/jdk/8u102-b14/server-jre-8u102-linux-x64.tar.gz"
+java_versions[8u111]="http://download.oracle.com/otn-pub/java/jdk/8u111-b14/server-jre-8u111-linux-x64.tar.gz"
+java_versions[8u112]="http://download.oracle.com/otn-pub/java/jdk/8u112-b15/server-jre-8u112-linux-x64.tar.gz"
 
 
 #------------------------------------------------------------------------------
