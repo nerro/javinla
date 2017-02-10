@@ -11,7 +11,7 @@ set -o pipefail   # return the exit status of the last command in the pipe
 set -o nounset    # treat unset variables and parameters as an error
 
 readonly program=$(basename $0)
-readonly version="1.0.0"
+readonly version="1.1.0-dev"
 readonly oraclelicence_header="Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie"
 
 declare is_wget_installed="false"
