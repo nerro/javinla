@@ -131,7 +131,7 @@ function download_with_curl() {
   local download_url=$2
 
   cd /tmp
-  (curl --location --insecure --junk-session-cookies --output ${java_tarball} \
+  (curl --location --junk-session-cookies --output ${java_tarball} \
         --header "${oraclelicence_header}" \
         ${download_url})
   if [[ $? -ne 0 ]]; then
@@ -144,7 +144,7 @@ function download_with_wget() {
   local download_url=$2
 
   cd /tmp
-  (wget --no-check-certificate --output-document ${java_tarball} \
+  (wget --output-document ${java_tarball} \
         --header "${oraclelicence_header}" \
         ${download_url})
   if [[ $? -ne 0 ]]; then
