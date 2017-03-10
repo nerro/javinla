@@ -90,8 +90,8 @@ function subcommand_install() {
     fi
 
     log ":: Configuring environment variables..."
-    (ln -sf /opt/java/${java_version_to_install} /opt/java/jre)
-    (ln -sf /opt/java/jre/bin/java /usr/local/bin/java)
+    (ln -sfn /opt/java/${java_version_to_install} /opt/java/jre)
+    (ln -sfn /opt/java/jre/bin/java /usr/local/bin/java)
 
     log ":: Cleaning..."
     (rm -rf /tmp/${java_tarball})
